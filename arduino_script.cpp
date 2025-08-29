@@ -1,0 +1,88 @@
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_PN532.h>
+
+#define PN532_IRQ (2)
+#define PN532_RESET (3)
+
+Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  //baud rate
+  Serial.println("Start");
+  nfc.begin();
+
+  uint32_t versiondata = nfc.getFirmwareVersion();
+  if (!versiondata)
+  {
+    Serial.print("Could not find board");
+    while(1)
+    {
+      delay(100);
+    }
+  }
+  else
+  {
+    Serial.println("Board Found");
+  }
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  uint8_t success;
+  uint8_t uid[] = {0, 0, 0, 0, 0, 0, 0};
+  uint8_t uidLength;
+  
+  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+
+  if(success)
+  {
+      Serial.println("Found ISO14443A Card");
+      nfc.PrintHex(uid, uidLength);
+
+      if (uidLength == 4)
+      {
+        Serial.println("Mifare Classic Card (4 byte UID)");
+    
+        uint8_t keya[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+        success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, 4, 0, keya);
+        if(success)
+        {
+      
+          Serial.println("Sector 1 Authenticated");
+          uint8_t data[16];
+      
+          success = nfc.mifareclassic_ReadDataBlock(4, data);
+
+            if(success)
+            {
+              Serial.println("Reading Block 4:");
+              nfc.PrintHexChar(data, 16);
+            }
+          }
+        }
+     else if(uidLength == 7)
+     {
+      Serial.println("This is a NTAG2xx tag (7 byte UID)");
+        //NTAG215
+         uint8_t data[4];
+         for(uint8_t i = 0; i < 135; ++i)
+         {
+         success = nfc.ntag2xx_ReadPage(i, data);
+         if (success)
+         {
+          nfc.PrintHex(data,4);
+          Serial.println();
+         }
+         memset(data, 0, sizeof(data));
+        }
+      }
+  }
+      Serial.println("Waiting for card");
+      delay(500);
+
+}
