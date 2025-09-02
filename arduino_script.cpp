@@ -7,12 +7,19 @@
 
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
+const int bufferSize = 100;
+byte bufferData[bufferSize];
+int tell = 0;
+int index = 0;
+String check = "";
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   //baud rate
   Serial.println("Start");
   nfc.begin();
+
 
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (!versiondata)
@@ -31,6 +38,27 @@ void setup() {
 }
 
 void loop() {
+  while(Serial.available() >= 4 && index < bufferSize-4)
+  {
+        Serial.print("Reading Data");
+    for(int i = index; i < index + 4; ++i)
+    {
+       bufferData[i] = Serial.read();
+    }
+
+    for(int i = index; i < index + 4; ++i)
+    {
+      Serial.print("0x");
+      Serial.print(bufferData[i], HEX);
+      check += String(bufferData[i], HEX);
+      Serial.print(" ");
+    }
+    index += 4;
+          Serial.println();
+  }
+
+  Serial.print(check);
+    
   // put your main code here, to run repeatedly:
 
   uint8_t success;
@@ -70,13 +98,21 @@ void loop() {
       Serial.println("This is a NTAG2xx tag (7 byte UID)");
         //NTAG215
          uint8_t data[4];
-         for(uint8_t i = 0; i < 135; ++i)
+         for(uint8_t i = 10; i < 135; ++i)
          {
          success = nfc.ntag2xx_ReadPage(i, data);
          if (success)
          {
           nfc.PrintHex(data,4);
           Serial.println();
+          if(tell < index)
+          {
+            memcpy(data, bufferData + tell, 4);
+            tell += 4;
+            nfc.ntag2xx_WritePage(i, data);
+            nfc.PrintHex(data, 4);
+            Serial.println("new" + tell);
+          }
          }
          memset(data, 0, sizeof(data));
         }
