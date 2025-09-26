@@ -20,33 +20,23 @@ namespace apple_wallet
         {
             _appleWalletConfiguration = appleWalletConfiguration;
         }
-        public async Task<HttpResponseMessage> CreateWalletPass(string orderId, string eventId)
+        public async Task<HttpResponseMessage> CreateWalletPass(string field1, string field2, string field3)
         {
-            hashedSerialNumber = await RequestPass(orderId, eventId);
+            hashedSerialNumber = await RequestPass(field1, field2, field3);
             if (hashedSerialNumber == -1)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
             //maybe use the integer values for different error codes
-            return new HttpResponseMessage()
-            {
-                Content = new ByteArrayContent(passBundle)
-                {
-                    Headers =
-                    {
-                        ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/vnd.apple.pkpass"),
-                        ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment; filename=tickets.pkpass.zip; filename*=UTF-8''tickets.pkpass.zip")
-                    }
-                },
-                StatusCode = HttpStatusCode.OK
-            };
+            var response = new HttpResponseMessage(HttpStatusCode.Found);
+            response.Headers.Location = new Uri($"https://www.passsource.com/pass/create.php?hashedSerialNumber={hashedSerialNumber}");
         }
         //these parameters may be subject to change
         private async Task<int> RequestPass(string orderId, string eventId)
         {
             //using passsource api
             using HttpClient client = new HttpClient();
-            string login_url = "https://api.passsource.com/v1/passes";
+            string login_url = "https://www.passsource.com/api/login.php?";
             try
             {
                 HttpResponseMethod response = await client.GetAsync(url);
