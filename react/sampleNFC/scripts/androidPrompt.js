@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     View, 
     Text, 
@@ -9,37 +10,41 @@ import {
     Animated
 } from 'react-native';
 
+
 function AndroidPrompt(props, ref) {
     const [_visible, _setVisible] = React.useState(false);
-    const [visible, setVisible] = React.useState(false);
     const [hintText, setHintText] = React.useState('');
+    const [session, setSessionOn] = React.useState(false);
     const animValue = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
         if(ref) {
             ref.current = {
-                setVisible,
+                _setVisible,
                 setHintText,
+                session
             };
         }
     }, [ref]);
 
     React.useEffect(() => {
         if(_visible) {
-            setVisible(true);
+            //setVisible(true);
             Animated.timing(animValue, {
                 duration: 300,
                 toValue: 1,
                 useNativeDriver: true,
             }).start();
+            setSessionOn(true)
         }
         else {
             Animated.timing(animValue, {
                 duration: 300,
                 toValue: 0,
                 useNativeDriver: true,
-            }).start(() => {setVisible(false);})
+            }).start()
             setHintText('');
+            setSessionOn(false);
         }
     }, [_visible, animValue])
 
@@ -56,13 +61,12 @@ function AndroidPrompt(props, ref) {
     }
 
     return (
-        <Modal visible={visible} transparent={true}>
+        <Modal visible={_visible} transparent={true}>
             <View style={styles.content}>
-                <Animated.View style={[styles.backdrop, StyleSheet.absoluteFill, backdropAnimStyle]}/>
                 <Animated.View style={[styles.prompt, promptAnimStyle]}>
                 <Text>{hintText || "Hello NFC"}</Text>
                 <TouchableOpacity style={styles.btn} onPress={()=>{
-                    _setVisible(false);
+                    _setVisible(true);
                 }}>
                     <Text>Cancel</Text>
                 </TouchableOpacity>

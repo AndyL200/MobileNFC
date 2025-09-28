@@ -6,10 +6,16 @@ import {View} from 'react-native'
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
+import { NFC_Ready } from '@/components/contexts/nfcContext';
 import DarkVeil from '@/components/ui/darkVeil';
 import NFC from '../../scripts/nfcSupport';
+import { useContext } from 'react';
+
+
+
 
 export default function HomeScreen() {
+  const ready = useContext(NFC_Ready);
   return (
     <>
     <View style={styles.openingVeil}>
@@ -18,7 +24,9 @@ export default function HomeScreen() {
     </View>
     <View style={styles.foreground}>
       <ThemedText>Welcome to the page</ThemedText>
+      {ready? (
       <NFC></NFC>
+      ) : (<></>)}
       </View>
     </View>
     </>
