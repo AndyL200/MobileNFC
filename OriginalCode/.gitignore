@@ -1,3 +1,6 @@
 arduino/include
 bin
 obj
+
+*arduino/serialMonitoring/*.csproj
+*arduino/serialMonitoring/*.sln
