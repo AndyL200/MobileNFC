@@ -1,21 +1,16 @@
-import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
 import {View} from 'react-native'
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-import { NFC_Ready } from '@/components/contexts/nfcContext';
 import DarkVeil from '@/components/ui/darkVeil';
 import NFC from '../../scripts/nfcSupport';
-import { useContext } from 'react';
-
+import { useLocalSearchParams } from 'expo-router';
 
 
 
 export default function HomeScreen() {
-  const ready = useContext(NFC_Ready);
+  const params = useLocalSearchParams();
   return (
     <>
     <View style={styles.openingVeil}>
@@ -24,8 +19,8 @@ export default function HomeScreen() {
     </View>
     <View style={styles.foreground}>
       <ThemedText>Welcome to the page</ThemedText>
-      {ready? (
-      <NFC></NFC>
+      {params?.FirstName ? (
+      <NFC value={params}></NFC>
       ) : (<></>)}
       </View>
     </View>

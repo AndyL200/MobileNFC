@@ -29,7 +29,6 @@ function AndroidPrompt(props, ref) {
 
     React.useEffect(() => {
         if(_visible) {
-            //setVisible(true);
             Animated.timing(animValue, {
                 duration: 300,
                 toValue: 1,

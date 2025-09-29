@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'expo-image';
 import { StyleSheet, TextInput, View, Button } from 'react-native';
 import { Link } from 'expo-router';
@@ -6,16 +6,13 @@ import { Link } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { Fonts } from '@/constants/theme';
 
-import {NFC_Context} from '@/components/contexts/nfcContext';
-import {NFC_Ready} from '@/components/contexts/nfcContext';
+import { useRouter } from 'expo-router';
 
 
 function processData(fn : string, ln : string, Tnum : string)
 {
-  <>
-  <NFC_Context value={{"FirstName" : fn, "LastName": ln, "Tnumber": Tnum}} />
-  <NFC_Ready value={true} />
-  </>
+  const router = useRouter();
+  router.push({ pathname: '/', params: {FirstName: fn, LastName: ln, Tnumber: Tnum}});
 }
 //This page will be for user input
 
