@@ -22,19 +22,18 @@ function AndroidPrompt(props, ref) {
             ref.current = {
                 _setVisible,
                 setHintText,
-                session
             };
         }
     }, [ref]);
 
     React.useEffect(() => {
-        if(_visible) {
+        if(!_visible) {
             Animated.timing(animValue, {
                 duration: 300,
                 toValue: 1,
                 useNativeDriver: true,
             }).start();
-            setSessionOn(true)
+            //setSessionOn(true)
         }
         else {
             Animated.timing(animValue, {
@@ -43,7 +42,7 @@ function AndroidPrompt(props, ref) {
                 useNativeDriver: true,
             }).start()
             setHintText('');
-            setSessionOn(false);
+            //setSessionOn(false);
         }
     }, [_visible, animValue])
 
@@ -65,7 +64,7 @@ function AndroidPrompt(props, ref) {
                 <Animated.View style={[styles.prompt, promptAnimStyle]}>
                 <Text>{hintText || "Hello NFC"}</Text>
                 <TouchableOpacity style={styles.btn} onPress={()=>{
-                    _setVisible(true);
+                    _setVisible(false);
                 }}>
                     <Text>Cancel</Text>
                 </TouchableOpacity>
