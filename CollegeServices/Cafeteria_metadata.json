@@ -1,0 +1,75 @@
+{
+  "T00752363": {
+    "First name": "Mahesh",
+    "Last name": "Yadav",
+    "Classification": "Senior",
+    "Access": ["ChickFillet", "Campus Cafeteria"],
+    "Department": "Computer Science",
+    "Email": "mahesh.yadav@my.tnstate.edu",
+    "Balance": 45.75
+  },
+  "T00752364": {
+    "First name": "Aisha",
+    "Last name": "Patel",
+    "Classification": "Junior",
+    "Access": ["Campus Cafeteria", "Snack Bar"],
+    "Department": "Biology",
+    "Email": "aisha.patel@my.tnstate.edu",
+    "Balance": 30.50
+  },
+  "T00752365": {
+    "First name": "Liam",
+    "Last name": "Nguyen",
+    "Classification": "Sophomore",
+    "Access": ["ChickFillet", "Food Court"],
+    "Department": "Mechanical Engineering",
+    "Email": "liam.nguyen@my.tnstate.edu",
+    "Balance": 60.00
+  },
+  "T00752366": {
+    "First name": "Sophia",
+    "Last name": "Brown",
+    "Classification": "Senior",
+    "Access": ["Campus Cafeteria", "Food Court"],
+    "Department": "Fine Arts",
+    "Email": "sophia.brown@my.tnstate.edu",
+    "Balance": 25.25
+  },
+  "T00752367": {
+    "First name": "Ethan",
+    "Last name": "Garcia",
+    "Classification": "Freshman",
+    "Access": ["Campus Cafeteria", "Snack Bar"],
+    "Department": "Physics",
+    "Email": "ethan.garcia@my.tnstate.edu",
+    "Balance": 50.00
+  },
+  "T00752368": {
+    "First name": "Olivia",
+    "Last name": "Martinez",
+    "Classification": "Junior",
+    "Access": ["ChickFillet", "Campus Cafeteria"],
+    "Department": "Chemistry",
+    "Email": "olivia.martinez@my.tnstate.edu",
+    "Balance": 40.75
+  },
+  "T00752369": {
+    "First name": "Noah",
+    "Last name": "Johnson",
+    "Classification": "Sophomore",
+    "Access": ["Food Court", "Snack Bar", "Campus Cafeteria"],
+    "Department": "Mathematics",
+    "Email": "noah.johnson@my.tnstate.edu",
+    "Balance": 35.60
+  },
+  "T00752370": {
+    "First name": "Emma",
+    "Last name": "Lee",
+    "Classification": "Senior",
+    "Access": ["ChickFillet", "Food Court"],
+    "Department": "Economics",
+    "Email": "emma.lee@my.tnstate.edu",
+    "Balance": 55.20
+  }
+}
+

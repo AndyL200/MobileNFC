@@ -1,0 +1,66 @@
+{
+  "D0010001": {
+    "First name": "Mahesh",
+    "Last name": "Yadav",
+    "Classification": "Senior",
+    "Access": ["Dorm A", "Laundry Room", "Gym"],
+    "Department": "Computer Science",
+    "Email": "mahesh.yadav@my.tnstate.edu"
+  },
+  "D0010002": {
+    "First name": "Aisha",
+    "Last name": "Patel",
+    "Classification": "Junior",
+    "Access": ["Dorm B", "Study Hall"],
+    "Department": "Biology",
+    "Email": "aisha.patel@my.tnstate.edu"
+  },
+  "D0010003": {
+    "First name": "Liam",
+    "Last name": "Nguyen",
+    "Classification": "Sophomore",
+    "Access": ["Dorm C", "Gym", "Common Room"],
+    "Department": "Mechanical Engineering",
+    "Email": "liam.nguyen@my.tnstate.edu"
+  },
+  "D0010004": {
+    "First name": "Sophia",
+    "Last name": "Brown",
+    "Classification": "Senior",
+    "Access": ["Dorm A", "Laundry Room"],
+    "Department": "Fine Arts",
+    "Email": "sophia.brown@my.tnstate.edu"
+  },
+  "D0010005": {
+    "First name": "Ethan",
+    "Last name": "Garcia",
+    "Classification": "Freshman",
+    "Access": ["Dorm D", "Study Hall", "Gym"],
+    "Department": "Physics",
+    "Email": "ethan.garcia@my.tnstate.edu"
+  },
+  "D0010006": {
+    "First name": "Olivia",
+    "Last name": "Martinez",
+    "Classification": "Junior",
+    "Access": ["Dorm B", "Common Room", "Laundry Room"],
+    "Department": "Chemistry",
+    "Email": "olivia.martinez@my.tnstate.edu"
+  },
+  "D0010007": {
+    "First name": "Noah",
+    "Last name": "Johnson",
+    "Classification": "Sophomore",
+    "Access": ["Dorm C", "Gym", "Study Hall"],
+    "Department": "Mathematics",
+    "Email": "noah.johnson@my.tnstate.edu"
+  },
+  "D0010008": {
+    "First name": "Emma",
+    "Last name": "Lee",
+    "Classification": "Senior",
+    "Access": ["Dorm A", "Common Room"],
+    "Department": "Economics",
+    "Email": "emma.lee@my.tnstate.edu"
+  }
+}

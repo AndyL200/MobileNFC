@@ -1,0 +1,66 @@
+{
+  "L0010001": {
+    "First name": "Mahesh",
+    "Last name": "Yadav",
+    "Classification": "Senior",
+    "Access": ["Main Library", "Reference Section", "Computer Lab"],
+    "Department": "Computer Science",
+    "Email": "mahesh.yadav@my.tnstate.edu"
+  },
+  "L0010002": {
+    "First name": "Aisha",
+    "Last name": "Patel",
+    "Classification": "Junior",
+    "Access": ["Main Library", "Study Room 1"],
+    "Department": "Biology",
+    "Email": "aisha.patel@my.tnstate.edu"
+  },
+  "L0010003": {
+    "First name": "Liam",
+    "Last name": "Nguyen",
+    "Classification": "Sophomore",
+    "Access": ["Main Library", "Computer Lab", "Archives"],
+    "Department": "Mechanical Engineering",
+    "Email": "liam.nguyen@my.tnstate.edu"
+  },
+  "L0010004": {
+    "First name": "Sophia",
+    "Last name": "Brown",
+    "Classification": "Senior",
+    "Access": ["Reference Section", "Study Room 2"],
+    "Department": "Fine Arts",
+    "Email": "sophia.brown@my.tnstate.edu"
+  },
+  "L0010005": {
+    "First name": "Ethan",
+    "Last name": "Garcia",
+    "Classification": "Freshman",
+    "Access": ["Main Library", "Study Room 1", "Computer Lab"],
+    "Department": "Physics",
+    "Email": "ethan.garcia@my.tnstate.edu"
+  },
+  "L0010006": {
+    "First name": "Olivia",
+    "Last name": "Martinez",
+    "Classification": "Junior",
+    "Access": ["Main Library", "Reference Section", "Archives"],
+    "Department": "Chemistry",
+    "Email": "olivia.martinez@my.tnstate.edu"
+  },
+  "L0010007": {
+    "First name": "Noah",
+    "Last name": "Johnson",
+    "Classification": "Sophomore",
+    "Access": ["Study Room 2", "Computer Lab", "Main Library"],
+    "Department": "Mathematics",
+    "Email": "noah.johnson@my.tnstate.edu"
+  },
+  "L0010008": {
+    "First name": "Emma",
+    "Last name": "Lee",
+    "Classification": "Senior",
+    "Access": ["Reference Section", "Main Library"],
+    "Department": "Economics",
+    "Email": "emma.lee@my.tnstate.edu"
+  }
+}
