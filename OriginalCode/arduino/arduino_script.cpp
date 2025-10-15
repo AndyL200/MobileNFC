@@ -8,7 +8,15 @@
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
 const int bufferSize = 100;
-byte bufferData[bufferSize];
+static uint8_t AID={
+              (byte)0x00
+            , (byte)0xA4
+            , (byte)0x04
+            , (byte)0x00
+            , (byte)0x07
+            , (byte)0xF0, (byte)0x39, (byte)0x41, (byte)0x48, (byte)0x14, (byte)0x81, (byte)0x00
+            , (byte)0x00
+    };
 int tell = 0;
 int index = 0;
 String check = "";
@@ -38,27 +46,6 @@ void setup() {
 }
 
 void loop() {
-  while(Serial.available() >= 4 && index < bufferSize-4)
-  {
-        Serial.print("Reading Data");
-    for(int i = index; i < index + 4; ++i)
-    {
-       bufferData[i] = Serial.read();
-    }
-
-    for(int i = index; i < index + 4; ++i)
-    {
-      Serial.print("0x");
-      Serial.print(bufferData[i], HEX);
-      check += String(bufferData[i], HEX);
-      Serial.print(" ");
-    }
-    index += 4;
-          Serial.println();
-  }
-
-  Serial.print(check);
-    
   // put your main code here, to run repeatedly:
 
   uint8_t success;
