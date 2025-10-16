@@ -5,18 +5,19 @@
 #define PN532_IRQ (2)
 #define PN532_RESET (3)
 
+//placeholder
+#define KEY = 0x98 
+
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
-const int bufferSize = 100;
-static uint8_t AID={
-              (byte)0x00
-            , (byte)0xA4
-            , (byte)0x04
-            , (byte)0x00
-            , (byte)0x07
-            , (byte)0xF0, (byte)0x39, (byte)0x41, (byte)0x48, (byte)0x14, (byte)0x81, (byte)0x00
-            , (byte)0x00
-    };
+
+
+#define BUFFERSIZE = 100;
+byte data[BUFFERSIZE] = {};
+byte AID[] = {0xF0, 0x39, 0x41, 0x48, 0x14, 0x81, 0x00}; //AID/Data
+unsigned int aidLen = sizeof(AID)/sizeof(uint8_t);
+byte* ApduFormat = new byte[6 + aidLen];
+              
 int tell = 0;
 int index = 0;
 String check = "";
@@ -26,6 +27,15 @@ void setup() {
   Serial.begin(115200);
   //baud rate
   Serial.println("Start");
+  
+
+  ApduFormat[0] = (byte)0x00; //CLA 
+  ApduFormat[1] = (byte)0xA4; //INS
+  ApduFormat[2] = (byte)0x04; //P1
+  ApduFormat[3] = (byte)0x00; //P2
+  ApduFormat[4] = (byte)(aidLen & 0x0FF); //Lc
+  memcpy(ApduFormat, AID, aidLen); 
+  
   nfc.begin();
 
 
@@ -49,48 +59,34 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   uint8_t success;
-  uint8_t uid[] = {0, 0, 0, 0, 0, 0, 0};
-  uint8_t uidLength;
+  uint8_t aid[6 + aidLen];
+  uint8_t aidLength;
   
-  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, aid, &aidLength);
+
+  nfc.PrintHex(aid, aidLength);
 
   if(success)
   {
-      Serial.println("Found ISO14443A Card");
-      nfc.PrintHex(uid, uidLength);
-
-      if (uidLength == 4)
+      if (aidLength != 6 + aidLen)
       {
-        Serial.println("Mifare Classic Card (4 byte UID)");
-    
-        uint8_t keya[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-        success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, 4, 0, keya);
-        if(success)
-        {
+        Serial.println("Failure");
+        return;
+      }
+        //Read
+        Serial.println("APDU Protocol");
+        //TODO()CyberSecurity Requirement, generate a private key for authentication
       
-          Serial.println("Sector 1 Authenticated");
-          uint8_t data[16];
-      
-          success = nfc.mifareclassic_ReadDataBlock(4, data);
-
-            if(success)
-            {
-              Serial.println("Reading Block 4:");
-              nfc.PrintHexChar(data, 16);
-            }
-          }
-        }
-     else if(uidLength == 7)
-     {
-      Serial.println("This is a NTAG2xx tag (7 byte UID)");
-        //NTAG215
-         uint8_t data[4];
-         for(uint8_t i = 10; i < 135; ++i)
+          Serial.println("Reading Data");
+          nfc.PrintHexChar(data, 6 + aidLen);
+          //comare aid[6-aid.length-1] to AID
+         if(memcmp(aid, AID))
          {
-         success = nfc.ntag2xx_ReadPage(i, data);
-         if (success)
-         {
+          //Write
+         
+         
           nfc.PrintHex(data,4);
+          //TODOs
           Serial.println();
           if(tell < index)
           {
@@ -102,10 +98,11 @@ void loop() {
           }
          }
          memset(data, 0, sizeof(data));
-        }
-      }
-  }
+    }
+  else
+  {
       Serial.println("Waiting for card");
       delay(500);
+  }
 
 }

@@ -1,21 +1,20 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import { ThemedText } from '@/components/themed-text';
+
 //import { HCESession, NFCTagType4NDEFContentType, NFCTagType4 } from 'react-native-hce';
 
 import AndroidPrompt from './androidPrompt';
 
-
+const {HCEModule} = NativeModules
 
 
 export default function NFC({value})
 {
     const val = value;
     let content = null;
-    //const [hasNfc, setHasNfc] = React.useState(true);
-    const hasNfc = true;
+    let hasNfc = HCEModule.check();
     const promptRef = React.useRef();
-    const sessionRef = React.useRef();
 
     if(val && val.FirstName && val.LastName && val.Tnumber)
     {
@@ -46,19 +45,20 @@ export default function NFC({value})
         
 */
         React.useEffect(() => {
-            if(sessionRef.current != null && sessionRef.current)
-            {
-                //setHasNfc(sessionRef.current?.enabled)
                 if(hasNfc)
                 {
-                //startSession();
+                HCEModule.start();
                 }
                 else
                 {
-                    //stopSession();
+                HCEModule.stop();
                 }
 
-            }
+                if(promptRef && promptRef.current)
+                {
+                    //If the widget is visible the process is operational
+                    hasNfc = promptRef.current
+                }
         }, [hasNfc]);
 
             return (
@@ -71,7 +71,7 @@ export default function NFC({value})
                     <TouchableOpacity onPress={()=>{
                         promptRef.current?._setVisible(true);
                     }}>
-                    <ThemedText>Testing 123</ThemedText>
+                    <ThemedText>Start NFC</ThemedText>
                     </TouchableOpacity>
                     <AndroidPrompt ref={promptRef}/>
 
