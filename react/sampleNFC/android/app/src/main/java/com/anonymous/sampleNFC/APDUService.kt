@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 
 class ApduService : HostApduService() {
+
+    val available = true;
     //macros in hexadecimal
     companion object {
         val Tag = "HCE process "
@@ -19,7 +21,12 @@ class ApduService : HostApduService() {
     }
     //this should return a byte array
     override fun processCommandApdu(commandApdu: ByteArray?, extras: Bundle?): ByteArray? {
-        //TODO("Not yet implemented")
+        //Only process if apduDataStore Enabled
+        //TODO(Close APDU Data store on exit)
+        if(!apduDataStore.isEnabled() || apduDataStore.getPayload() == null){
+            return null;
+        }
+        val payload = apduDataStore.getPayload()
         val hexCommandApdu = toHex(commandApdu)
 
         if(hexCommandApdu.length < MIN_APDU_LENGTH) {
@@ -32,18 +39,19 @@ class ApduService : HostApduService() {
             return hexStringToByteArray(INS_NOT_SUPPORTED);
         }
         if(hexCommandApdu.substring(10,24) == AID) {
-            return hexStringToByteArray(STATUS_SUCCESS)
+            if(payload != null) {
+                return payload + hexStringToByteArray(STATUS_SUCCESS)
+            }
         }
-        else {
+
             Log.d(Tag, "failed")
             return hexStringToByteArray(STATUS_FAILED)
         }
 
-    }
-
     override fun onDeactivated(reason: Int) {
-        //TODO("Not yet implemented")
-
+        //Wipe payload
+        apduDataStore.disable()
+        apduDataStore.setPayload(null)
     }
     private val HEX_CHARS = "0123456789ABCDEF"
     private fun hexStringToByteArray(st : String) : ByteArray
