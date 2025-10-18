@@ -1,19 +1,39 @@
-import sql from './db'
-const API_URL = ""
+import {createClient} from '@supabase/supabase-js'
+import {supabase} from '../scripts/supabaseClient'
+
 
 class AuthService {
-    login(email, password) {
-        return sql`
-        SELECT 
-        `.then(response=> {
-            //if valid response
-            if(response.data.accessToken) {
-                localStorage.setItem('user', JSON.stringify(response.data));
-            }
-            return response.data;
-        });
+    
+    async login(email, password) {
+        const {data, error} = await supabase.auth.signInWithPassword({
+            email:email,
+            password:password
+        })
+        if(error) 
+        {
+            console.error("There was a problem signing up: ", error)
+            return {success : false, error}
+        }
+
+        localStorage.setItem('user', JSON.stringify(response.data));
+        return {success: true, data};
+    }
+
+    async signUp(email, password) {
+        const {data, error} = await supabase.auth.signUp({
+            email:email,
+            password:password
+        })
+        if(error) 
+        {
+            console.error("There was a problem signing up: ", error)
+        }
+
+        return await login(email, password)
+
     }
     logout() {
+        supabase.auth.signOut()
         localStorage.removeItem('user')
     }
 

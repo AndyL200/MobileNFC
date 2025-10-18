@@ -1,11 +1,12 @@
 .vscode
+.expo
 dep/include
 bin
 obj
-.env
+*.env
 
 
-blazor
+
 
 
 

@@ -4,3 +4,5 @@ obj
 
 *arduino/serialMonitoring/*.csproj
 *arduino/serialMonitoring/*.sln
+
+*.env

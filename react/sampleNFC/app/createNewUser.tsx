@@ -6,18 +6,18 @@ import { ThemedText } from '@/components/themed-text';
 import { Fonts } from '@/constants/theme';
 
 import Protected from '@/components/protectedLoginConf';
-import Login from '@/components/login';
+import SignUp from '@/components/signUp';
 import AuthService from '@/scripts/authService';
 
 //This page will be for signing users in
 
-export default function LoginPage() {
+export default function createNewUser() {
 
 
   return (
    <>
    <View style={styles.all}>
-    {AuthService.isLoggedIn() ? <Login/> : <Protected/>}
+    <SignUp/>
     </View>
    </> 
 
