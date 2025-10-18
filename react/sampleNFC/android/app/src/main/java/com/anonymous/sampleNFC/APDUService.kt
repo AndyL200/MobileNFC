@@ -40,7 +40,7 @@ class ApduService : HostApduService() {
         }
         if(hexCommandApdu.substring(10,24) == AID) {
             if(payload != null) {
-                return payload + hexStringToByteArray(STATUS_SUCCESS)
+                return payload.plus(hexStringToByteArray(STATUS_SUCCESS))
             }
         }
 
