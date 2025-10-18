@@ -14,7 +14,6 @@ import {
 function AndroidPrompt(props, ref) {
     const [_visible, _setVisible] = React.useState(false);
     const [hintText, setHintText] = React.useState('');
-    const [session, setSessionOn] = React.useState(false);
     const animValue = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
@@ -33,7 +32,6 @@ function AndroidPrompt(props, ref) {
                 toValue: 1,
                 useNativeDriver: true,
             }).start();
-            //setSessionOn(true)
         }
         else {
             Animated.timing(animValue, {
@@ -42,7 +40,6 @@ function AndroidPrompt(props, ref) {
                 useNativeDriver: true,
             }).start()
             setHintText('');
-            //setSessionOn(false);
         }
     }, [_visible, animValue])
 
