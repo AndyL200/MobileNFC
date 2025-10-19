@@ -5,17 +5,23 @@ import {supabase} from '../scripts/supabaseClient'
 class AuthService {
     
     async login(email, password) {
-        const {data, error} = await supabase.auth.signInWithPassword({
-            email:email,
-            password:password
+        const {data : userData, error : signInError} = await supabase.auth.signInWithPassword({
+            email,
+            password
         })
-        if(error) 
+        if(signInError || !userData.user?.id) 
         {
             console.error("There was a problem signing up: ", error)
             return {success : false, error}
         }
-
-        localStorage.setItem('user', JSON.stringify(response.data));
+        //using trigger for automatic creation if not available
+        const {data : profile, error : profileError} = await supabase.from("NFCUsers").select('*')
+        if(profileError)
+        {
+            console.error("There was a retrieving profile: ", profileError)
+            return {success : false, profileError}
+        }
+        localStorage.setItem('user', JSON.stringify(profile));
         return {success: true, data};
     }
 

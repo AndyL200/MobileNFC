@@ -11,12 +11,13 @@ const {HCEModule} = NativeModules
 export default function NFC({value})
 {
     const val = value;
-    let content = null;
     const promptRef = React.useRef();
 
     if(val && val.FirstName && val.LastName && val.Tnumber)
     {
-    content = {"FirstName" : val.FirstName, "LastName" : val.LastName, "Tnumber" : val.Tnumber}
+    const content = JSON.stringify({"FirstName" : val.FirstName, "LastName" : val.LastName, "Tnumber" : val.Tnumber})
+    //set HCEModule shared content
+    HCEModule.setAPDUPayload(content)
     }
 
 

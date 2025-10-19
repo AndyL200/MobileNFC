@@ -5,12 +5,11 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import DarkVeil from '@/components/ui/darkVeil';
 import NFC from '../../scripts/nfcSupport';
-import { useLocalSearchParams } from 'expo-router';
-
+import AuthService from '@/scripts/authService';
 
 
 export default function HomeScreen() {
-  const params = useLocalSearchParams();
+
   return (
     <>
     <View style={styles.openingVeil}>
@@ -19,8 +18,8 @@ export default function HomeScreen() {
     </View>
     <View style={styles.foreground}>
       <ThemedText>Welcome to the page</ThemedText>
-      {params?.FirstName ? (
-      <NFC value={params}></NFC>
+      {AuthService.isLoggedIn() ? (
+      <NFC value={localStorage.getItem('user')}></NFC>
       ) : (<></>)}
       </View>
     </View>
