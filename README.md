@@ -1,6 +1,6 @@
 senior project in progress
 
-TODO(Google cloud account setup)
+TODO(Use a login check on login page to double as a profile page in which necessary fields can be filled)
 
 Instructions:
 get node.js and npm
