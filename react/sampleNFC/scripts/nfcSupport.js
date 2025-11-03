@@ -1,28 +1,40 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import { ThemedText } from '@/components/themed-text';
+import {DigitalIdCard} from '@/components/digitalID'
 
 
 import AndroidPrompt from './androidPrompt';
 
-const {HCEModule} = NativeModules
+let HCEModule = null
+if (Platform.OS == "android")
+{
+    HCEModule = NativeModules.HCEModule
+}
+
+ 
 
 
 export default function NFC({value})
 {
     const val = value;
     const promptRef = React.useRef();
+    const [hasNfc, setHasNfc] = React.useState(false);
+    const content = "\0";
 
     if(val && val.FirstName && val.LastName && val.Tnumber)
     {
-    const content = JSON.stringify({"FirstName" : val.FirstName, "LastName" : val.LastName, "Tnumber" : val.Tnumber})
+    content = JSON.stringify({"FirstName" : val.FirstName, "LastName" : val.LastName, "Tnumber" : val.Tnumber})
     //set HCEModule shared content
-    HCEModule.setAPDUPayload(content)
+    }
+    if (HCEModule){
+    HCEModule?.setAPDUPayload(content)
+    setHasNfc(true)
     }
 
 
         React.useEffect(() => {
-            if(promptRef)
+            if(promptRef && hasNfc)
             {
                 if(promptRef.current){
                         //If the widget is visible the process is operational
@@ -41,7 +53,7 @@ export default function NFC({value})
                 
         });
 
-            return (
+            return (hasNfc)? (
             <View style={{
                     flex: 1,
                     alignItems: 'center',
@@ -54,14 +66,10 @@ export default function NFC({value})
                     <ThemedText>Start NFC</ThemedText>
                     </TouchableOpacity>
                     <AndroidPrompt ref={promptRef}/>
-
-
-                    <View style={{width:200,height:200,backgroundColor:'green'}}>
-                        <ThemedText>Generated ID</ThemedText>
+                    <DigitalIdCard/>
                     </View>
-                    </View>
-            )
-            return (
+            ) :
+            (
                 <View>
                     <Text>Your device doesn't support NFC</Text>
         

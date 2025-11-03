@@ -11,8 +11,8 @@ class AuthService {
         })
         if(signInError || !userData.user?.id) 
         {
-            console.error("There was a problem signing up: ", error)
-            return {success : false, error}
+            console.error("There was a problem signing up: ", signInError)
+            return {success : false, signInError}
         }
         //using trigger for automatic creation if not available
         const {data : profile, error : profileError} = await supabase.from("NFCUsers").select('*')
@@ -22,7 +22,15 @@ class AuthService {
             return {success : false, profileError}
         }
         localStorage.setItem('user', JSON.stringify(profile));
-        return {success: true, data};
+        return {success: true, data: userData, profile};
+    }
+
+    async sendResetEmail(email) {
+        await supabase.auth.resetPasswordForEmail(email, {redirectTo: "/resetPassword"})
+    }
+
+    async resetPassword(newPass) {
+        await supabase.auth.updateUser({password: newPass})
     }
 
     async signUp(email, password) {
@@ -33,9 +41,12 @@ class AuthService {
         if(error) 
         {
             console.error("There was a problem signing up: ", error)
+            return {success: false, error}
         }
-
-        return await login(email, password)
+        else
+        {
+        return await this.login(email, password)
+        }
 
     }
     logout() {

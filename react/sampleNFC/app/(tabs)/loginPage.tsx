@@ -17,7 +17,7 @@ export default function LoginPage() {
   return (
    <>
    <View style={styles.all}>
-    {AuthService.isLoggedIn() ? <Login/> : <Protected/>}
+    {AuthService.isLoggedIn() ? <Protected/> : <Login/>}
     </View>
    </> 
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   all : {
     width: '100%',
     height: '100%',
-    backgroundColor:'#0e3950ff'
+    backgroundColor:'#2d000cff'
   },
   input : {
   backgroundColor: 'white',

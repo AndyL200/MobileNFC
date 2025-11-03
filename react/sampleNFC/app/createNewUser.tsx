@@ -1,13 +1,9 @@
 import React from 'react';
 import { Image } from 'expo-image';
 import { StyleSheet, TextInput, View, Button } from 'react-native';
-
 import { ThemedText } from '@/components/themed-text';
-import { Fonts } from '@/constants/theme';
 
-import Protected from '@/components/protectedLoginConf';
 import SignUp from '@/components/signUp';
-import AuthService from '@/scripts/authService';
 
 //This page will be for signing users in
 
