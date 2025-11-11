@@ -7,13 +7,31 @@ const SignUp = ()=> {
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const handleSignup = async () => {
+      setLoading(true)
         const handler = await AuthService.signUp(email, password)
-        if(handler.success)
+        if(handler?.success)
         {
-          router.push('/')
+          if ('requiresConfirmation' in handler)
+        {
+          if('message' in handler){
+          alert(`${handler?.message}`)
+          }
+          router.push('/loginPage')
         }
+        else{
+          alert('Signup successful! You are now logged in.');
+          router.push('/');
+        }
+      }
+      else {
+        if ('error' in handler){
+        alert(`Error: ${handler?.error}`)
+        }
+      }
+      setLoading(false)
     }
     return (
             <View style={styles.body}>
@@ -41,7 +59,7 @@ const SignUp = ()=> {
                     />
                   </View>
       
-                  <TouchableOpacity style={styles.loginBtn} onPress={handleSignup}>
+                  <TouchableOpacity style={styles.loginBtn} disabled={loading} onPress={handleSignup}>
                     <Text style={styles.loginBtnText}>Sign Up</Text>
                   </TouchableOpacity>
                   </View>

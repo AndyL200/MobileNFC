@@ -1,8 +1,8 @@
 import React from 'react'
 import AuthService from '@/scripts/authService'
 
-const Protected = () => {
-    const authString = AuthService.getCurrentUser()
+const Protected = async () => {
+    const authString = await AuthService.getCurrentUser()
     const user = authString? JSON.parse(authString) : null;
 
     if(user && user.email)

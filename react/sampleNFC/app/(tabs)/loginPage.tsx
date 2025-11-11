@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'expo-image';
 import { StyleSheet, TextInput, View, Button } from 'react-native';
 
@@ -12,12 +12,18 @@ import AuthService from '@/scripts/authService';
 //This page will be for signing users in
 
 export default function LoginPage() {
-
+  const [login, setLogin] = useState(false)
+  useEffect(() => {
+    const isLoggedIn = async () => {
+      setLogin(await AuthService.isLoggedIn())
+    }
+    isLoggedIn();
+  }, [login])
 
   return (
    <>
    <View style={styles.all}>
-    {AuthService.isLoggedIn() ? <Protected/> : <Login/>}
+    {login ? <Protected/> : <Login/>}
     </View>
    </> 
 
