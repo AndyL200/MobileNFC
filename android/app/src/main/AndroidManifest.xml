@@ -1,7 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.NFC"></uses-permission>
+    <uses-feature android:name="android.hardware.nfc" android:required="true"></uses-feature>
+    <uses-feature android:name="android.hardware.nfc.hce" android:required="true"></uses-feature>
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -23,5 +28,25 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+        <service
+            android:name=".ApduService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE">
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.host_apdu_service"></action>
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource=""/>
+        </service>
+        <host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+            android:description="@string/ServiceMe"
+            android:requireDeviceUnlock="false">
+            <aid-group  android:description="@string/NfcService"
+                android:category="other">
+                <aid-filter android:name="F0394148148100"/>
+
+            </aid-group>
+        </host-apdu-service>
     </application>
 </manifest>
