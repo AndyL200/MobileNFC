@@ -1,22 +1,19 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { AuthProvider } from '@/components/contexts/AuthContext';
+import { AuthProvider } from '@/components/contexts/AuthContext.tsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import HomeScreen from '@/(tabs)/index';
-import LoginScreen from '@/(tabs)/loginPage';
-import createNewUser from '@/createNewUser'
-import StudentForm from '@/tempFieldsPage'
+import HomeScreen from './layout/index.tsx';
+import LoginScreen from './layout/loginPage.tsx';
+import createNewUser from './layout/createNewUser.tsx'
+import StudentForm from './layout/tempFieldsPage.tsx'
 
 
 const Stack = createStackNavigator();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = 'dark';
 
   return (
     <AuthProvider>

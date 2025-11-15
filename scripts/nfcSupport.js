@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
-import { ThemedText } from '@/components/themed-text';
-import {DigitalIdCard} from '@/components/digitalID'
+import { ThemedText } from '@/components/themed-text.tsx';
+import {DigitalIdCard} from '@/components/digitalID.tsx'
 import { NativeModules } from 'react-native';
 
-import AndroidPrompt from './androidPrompt';
+import AndroidPrompt from './androidPrompt.js';
 
 const {HCEModule} = NativeModules;
 

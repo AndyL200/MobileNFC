@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mobilenfc</string>
+    <string name="ServiceMe">NFC Service</string>
+    <string name="NfcServiceGroup">NFC Service Group</string>
 </resources>

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "@/components/contexts/AuthContext";
+import { AuthContext } from "@/components/contexts/AuthContext.tsx";
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity, Alert } from 'react-native';
-import authService from "@/scripts/authService";
+import authService from "@/scripts/authService.js";
 
 const StudentForm = () => {
   const navi = useNavigation();

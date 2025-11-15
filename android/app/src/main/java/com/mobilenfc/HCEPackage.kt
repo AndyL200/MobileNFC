@@ -5,7 +5,8 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.app.HCEModule
+import com.mobilenfc.HCEModule
+
 class HCEPackage : BaseReactPackage() {
 
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? =
@@ -19,11 +20,11 @@ class HCEPackage : BaseReactPackage() {
         mapOf(
             HCEModule.NAME to ReactModuleInfo(
                 name = HCEModule.NAME,
-                className = HCEModule.NAME,
+                className = HCEModule::class.java.name,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
-                isTurboModule = true
+                isTurboModule = false
             )
         )
     }

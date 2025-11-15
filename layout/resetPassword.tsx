@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
 //This page will be for signing users in
 
 export default function createNewUser() {
