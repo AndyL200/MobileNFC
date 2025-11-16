@@ -2,12 +2,10 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { AuthProvider } from '@/components/contexts/AuthContext.tsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './layout/index.tsx';
-import LoginScreen from './layout/loginPage.tsx';
-import createNewUser from './layout/createNewUser.tsx'
-import StudentForm from './layout/tempFieldsPage.tsx'
-
-
+import TabLayout from './layout/tab_layout';
+import ResetPassword from './layout/resetPassword';
+import CreateNewUser from './layout/createNewUser';
+import StudentForm from './layout/tempFieldsPage';
 const Stack = createStackNavigator();
 
 
@@ -19,13 +17,12 @@ export default function RootLayout() {
     <AuthProvider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="createPwd" component={createNewUser} options={{ headerShown: false }} />
-            <Stack.Screen name="fields" component={StudentForm} options={{ headerShown: false }} />
+      <Stack.Navigator>
+            <Stack.Screen name="MainTabs" component={TabLayout} options={{ headerShown: false, title:"BottomTab" }} />
+            <Stack.Screen name="resetPassword" component={ResetPassword} options={{ headerShown: false, title:"pwdReset" }} />
+            <Stack.Screen name="createNewUser" component={CreateNewUser} options={{ headerShown: false, title:"newUser" }} />
           </Stack.Navigator>
-        </NavigationContainer>
+      </NavigationContainer>
     </ThemeProvider>
     </AuthProvider>
   );

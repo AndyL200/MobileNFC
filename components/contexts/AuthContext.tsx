@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, ReactNode } from 'react';
+import { AppState } from 'react-native';
 import { Session } from '@supabase/supabase-js';
-import { supabase } from '@/scripts/supabaseClient';
+import supabase  from '@/scripts/supabaseClient';
 import AuthService from '@/scripts/authService';
 
 export const AuthContext = createContext<{
@@ -13,12 +14,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    let isMounted = true;
 
     const loadUserData = async () => {
       try {
         const userData = await AuthService.getCurrentUser();
-        if (isMounted && userData) {
+        if (userData) {
           setUser(JSON.parse(userData));
         }
       } catch (err) {
@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const initSession = async () => {
       try {
         const sessionData = await AuthService.getSession();
-        if (isMounted && sessionData?.user) {
+        if (sessionData?.user) {
           setSession(sessionData);
           loadUserData();
         }
@@ -40,22 +40,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, newSession) => {
-        if (isMounted) {
-          setSession(newSession);
-          if (newSession?.user) {
-            loadUserData();
-          } else {
-            setUser(null);
-          }
-        }
+    const handleAppStateChange = (state: string) => {
+      if (state === 'active') {
+        supabase.auth.startAutoRefresh()
+      } else {
+        supabase.auth.stopAutoRefresh()
       }
-    );
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
 
     return () => {
-      isMounted = false;
-      subscription?.unsubscribe();
+      subscription?.remove();
     };
   }, []);
 

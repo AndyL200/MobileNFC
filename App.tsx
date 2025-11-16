@@ -5,6 +5,7 @@
  * @format
  */
 
+import React from 'react';
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import {
@@ -14,7 +15,9 @@ import {
 import RootLayout from './_layout';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === 'light';
+
+  
 
   return (
     <SafeAreaProvider>
@@ -29,11 +32,7 @@ function AppContent() {
 
   return (
     <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-      <RootLayout></RootLayout>
+      <RootLayout />
     </View>
   );
 }
@@ -45,3 +44,24 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+
+
+/* WHERE TO USE THIS CODE?
+useEffect(() => {
+    const handleAppStateChange = (state: string) => {
+      if (state === 'active') {
+        supabase.auth.startAutoRefresh()
+      } else {
+        supabase.auth.stopAutoRefresh()
+      }
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    return () => {
+      subscription?.remove();
+    };
+  }, []);
+
+*/

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 
 class APDUService : HostApduService() {
-    val available = true;
+    val available = true
     //macros in hexadecimal
     companion object {
         val Tag = "HCE process "
@@ -23,7 +23,7 @@ class APDUService : HostApduService() {
         //Only process if apduDataStore Enabled
         //TODO(Close APDU Data store on exit)
         if(!ApduDataStore.isEnabled() || ApduDataStore.getPayload() == null){
-            return null;
+            return null
         }
         val payload = ApduDataStore.getPayload()
         if(commandApdu == null)
@@ -39,7 +39,7 @@ class APDUService : HostApduService() {
             return hexStringToByteArray(CLA_NOT_SUPPORTED)
         }
         if(hexCommandApdu.substring(2,4) != SELECT_INS) {
-            return hexStringToByteArray(INS_NOT_SUPPORTED);
+            return hexStringToByteArray(INS_NOT_SUPPORTED)
         }
         if(hexCommandApdu.substring(10,24) == AID) {
             if(payload != null) {
@@ -59,7 +59,7 @@ class APDUService : HostApduService() {
     private val HEX_CHARS = "0123456789ABCDEF"
     private fun hexStringToByteArray(st : String) : ByteArray
     {
-        val byteList = ArrayList<Byte>();
+        val byteList = ArrayList<Byte>()
 
         for(i in st.indices step 2)
         {

@@ -18,7 +18,7 @@ const StudentForm = () => {
     if('error' in setter){
         Alert.alert("ERROR: " + setter?.error)
     }
-    navi.navigate('Home'); // Navigate somewhere after submission
+    navi.navigate('index'); // Navigate somewhere after submission
     }
     else {
       Alert.alert("ERROR USER NOT FOUND")

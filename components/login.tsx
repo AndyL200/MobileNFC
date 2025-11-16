@@ -11,11 +11,11 @@ const Login = ()=> {
     const handleLogin = async () => {
       const handler = await AuthService.login(email, password)
         if(handler.success) {
-            navi.navigate('/')
+            navi.navigate('index')
         }
     }
     const handleCreation = async () => {
-          navi.navigate('/createNewUser')
+          navi.navigate('createNewUser')
     }
     const handleForget = async () => {
       if(email.includes('@') && email.includes('.')){

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
 //This page will be for signing users in
 
-export default function createNewUser() {
+export default function ResetPassword() {
     const navi = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

@@ -19,10 +19,10 @@ const SignUp = ()=> {
           if('message' in handler){
           Alert.alert(`${handler?.message}`)
           }
-          navi.navigate('/tempFieldsPage')
+          navi.navigate('tempFields')
         }
         else{
-          navi.navigate('/tempFieldsPage');
+          navi.navigate('tempFields');
         }
       }
       else {

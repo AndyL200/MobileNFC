@@ -38,7 +38,7 @@ export default function HomeScreen() {
     <>
       <View style={styles.openingVeil}>
         <View style={StyleSheet.absoluteFill}>
-          <DarkVeil />
+          
         </View>
         <View style={styles.foreground}>
           <ThemedText>Welcome to the page</ThemedText>
@@ -69,3 +69,5 @@ const styles = StyleSheet.create({
     textDecorationColor: 'white'
   }
 });
+
+//<DarkVeil />

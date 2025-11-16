@@ -6,7 +6,7 @@ import SignUp from '@/components/signUp';
 
 //This page will be for signing users in
 
-export default function createNewUser() {
+export default function CreateNewUser() {
 
 
   return (
