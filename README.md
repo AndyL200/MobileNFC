@@ -1,3 +1,14 @@
+This app has been rebuilt without the use of expo
+
+
+Latest Demo
+
+https://github.com/user-attachments/assets/82ef0ccf-29de-4b88-9cd5-0a33a4670422
+
+
+
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
