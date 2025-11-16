@@ -21,6 +21,7 @@ function AndroidPrompt(props, ref) {
             ref.current = {
                 _setVisible,
                 setHintText,
+                _visible,
             };
         }
     }, [ref]);

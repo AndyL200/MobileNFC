@@ -21,6 +21,7 @@ export default function RootLayout() {
             <Stack.Screen name="MainTabs" component={TabLayout} options={{ headerShown: false, title:"BottomTab" }} />
             <Stack.Screen name="resetPassword" component={ResetPassword} options={{ headerShown: false, title:"pwdReset" }} />
             <Stack.Screen name="createNewUser" component={CreateNewUser} options={{ headerShown: false, title:"newUser" }} />
+            <Stack.Screen name="tempFields" component={StudentForm} options={{ headerShown: false, title:"tempFields" }} />
           </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

@@ -17,7 +17,7 @@ class AuthService {
         
         // Filter by user ID ✅
         const {data : profile, error : profileError} = await supabase
-            .from("NFCUsers")
+            .from("NFCAppUsers")
             .select('*')
             .eq('user_id', userData.user.id) 
             .single();
@@ -46,12 +46,12 @@ class AuthService {
         }
 
         const { data, error } = await supabase
-            .from("NFCUsers")
+            .from("NFCAppUsers")
             .upsert({
                 user_id: userId, // ✅ Use user from context
-                tnum: tnum,
-                fname: fname,
-                lname: lname
+                TNumber: tnum,
+                FirstName: fname,
+                LastName: lname
             })
             .select().single();
 
@@ -77,12 +77,16 @@ class AuthService {
         }
 
         const {data : profile, error : profileError} = await supabase
-        .from("NFCUsers")
+        .from("NFCAppUsers")
         .select('*')
-        .eq('user_id', userData.user.id) 
+        .eq('user_id', userId) 
         .single();
-
-        return {firstName : profile.firstName, lastName : profile.lastName, TNumber: profile.TNumber}
+        
+        if (profileError) {
+        console.error("Error retrieving profile: ", profileError);
+        return { success: false, error: profileError.message };
+    }
+        return {FirstName : profile.FirstName, LastName : profile.LastName, TNumber: profile.TNumber}
     }
 
     async resetPassword(newPass) {
@@ -110,9 +114,18 @@ class AuthService {
         };
     }
 
-    // User created and confirmed (or confirmation disabled), log them in
-    return await this.login(email, password);
+    // Login expects a NFCUser
+    if (data?.user?.id) {
+        return { 
+            success: true, 
+            message: 'Account created successfully! Please complete your profile.',
+            user: data.user 
+        };
     }
+
+    return { success: false, error: 'Unknown signup error' };
+    }
+
     async logout() {
         await supabase.auth.signOut()
         

@@ -1,31 +1,18 @@
 package com.mobilenfc
 
-import com.facebook.react.BaseReactPackage
+import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.module.model.ReactModuleInfo
-import com.facebook.react.module.model.ReactModuleInfoProvider
+import com.facebook.react.uimanager.ViewManager
 import com.mobilenfc.HCEModule
 
-class HCEPackage : BaseReactPackage() {
+class HCEPackage : ReactPackage {
 
-    override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? =
-        if (name == HCEModule.NAME) {
-            HCEModule(reactContext)
-        } else {
-            null
-        }
+    override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
+        return listOf(HCEModule(reactContext))
+    }
 
-    override fun getReactModuleInfoProvider() = ReactModuleInfoProvider {
-        mapOf(
-            HCEModule.NAME to ReactModuleInfo(
-                name = HCEModule.NAME,
-                className = HCEModule::class.java.name,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = false
-            )
-        )
+    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+        return emptyList()
     }
 }

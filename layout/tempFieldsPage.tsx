@@ -3,27 +3,33 @@ import { AuthContext } from "@/components/contexts/AuthContext.tsx";
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity, Alert } from 'react-native';
 import authService from "@/scripts/authService.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const StudentForm = () => {
   const navi = useNavigation();
-  const { session, user } = useContext(AuthContext);
+  const { session, user, refreshUser } = useContext(AuthContext);
   const [tnumber, setTnumber] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
   const handleSubmit = async () => {
-    // Replace with your own service call or validation
     if(user){
-    let setter = authService.setFields(user, tnumber, firstName, lastName)
-    if('error' in setter){
-        Alert.alert("ERROR: " + setter?.error)
+      try {
+        const setter = await authService.setFields(user, tnumber, firstName, lastName);
+        if(setter && 'error' in setter){
+          Alert.alert("Error", setter.error);
+        } else {
+          await refreshUser(); // Refresh user data after setting fields
+          Alert.alert("Success", "Profile updated successfully!");
+          navi.navigate('index');
+        }
+      } catch (error) {
+        Alert.alert("Error", "Failed to update profile");
+      }
+    } else {
+      Alert.alert("Error", "User not found - please log in again");
     }
-    navi.navigate('index'); // Navigate somewhere after submission
-    }
-    else {
-      Alert.alert("ERROR USER NOT FOUND")
-    }
-    
   };
 
   return (

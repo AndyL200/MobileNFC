@@ -7,25 +7,35 @@ import AuthService from '@/scripts/authService';
 export const AuthContext = createContext<{
   session: Session | null;
   user: any;
-}>({ session: null, user: null });
+  refreshUser: () => Promise<void>;
+  setUser: (user: any) => void;
+}>({ session: null, user: null,  refreshUser: async () => {}, setUser: () => {}});
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-
-    const loadUserData = async () => {
+  const loadUserData = async () => {
       try {
         const userData = await AuthService.getCurrentUser();
         if (userData) {
           setUser(JSON.parse(userData));
+        } else {
+          setUser(null); // Clear user if no data found
         }
       } catch (err) {
         console.error('Failed to load user data:', err);
+        setUser(null); // Clear user on error
       }
     };
 
+  const refreshUser = async () => {
+    await loadUserData();
+  };
+
+  useEffect(() => {
+
+  
     const initSession = async () => {
       try {
         const sessionData = await AuthService.getSession();
@@ -56,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session, user }}>
+    <AuthContext.Provider value={{ session, user,  refreshUser, setUser}}>
       {children}
     </AuthContext.Provider>
   );

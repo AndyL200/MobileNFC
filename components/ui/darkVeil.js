@@ -1,12 +1,13 @@
 import React, { useMemo, useRef, useEffect, useState } from 'react';
 import { View, Dimensions } from 'react-native';
-import GL from 'gl-react';
-import { Surface } from 'gl-react-native';
+import { Surface } from "gl-react-native";
+import { Shaders, Node } from "gl-react";
+
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   DarkVeil: {
     frag: `#ifdef GL_ES
 precision lowp float;
@@ -127,7 +128,7 @@ export default function DarkVeil({
   return (
     <View style={{ width: '100%', height: '100%' }}>
       <Surface style={{ width: '100%', height: '100%' }}>
-        <GL.Node shader={shaders.DarkVeil} uniforms={uniforms} />
+        <Node shader={shaders.DarkVeil} uniforms={uniforms} />
       </Surface>
     </View>
   );

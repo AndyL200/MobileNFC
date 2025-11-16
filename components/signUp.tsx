@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import AuthService from '../scripts/authService'
+import React, { useState, useContext } from "react";
+import AuthService from '@/scripts/authService.js'
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { AuthContext } from '@/components/contexts/AuthContext';
 
 const SignUp = ()=> {
     const navi = useNavigation()
+    const { refreshUser } = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -14,20 +16,26 @@ const SignUp = ()=> {
         const handler = await AuthService.signUp(email, password)
         if(handler?.success)
         {
-          if ('requiresConfirmation' in handler)
-        {
-          if('message' in handler){
-          Alert.alert(`${handler?.message}`)
-          }
-          navi.navigate('tempFields')
+          if (handler.requiresConfirmation) {
+                Alert.alert(
+                    "Confirmation Required", 
+                    handler.message || "Check your email to confirm your account",
+                    [
+                        {
+                            text: "OK",
+                            onPress: () => navi.navigate('tempFields') // ✅ Go to login after confirmation
+                        }
+                    ]
+                );
         }
         else{
+          await refreshUser(); // Refresh context after successful signup
           navi.navigate('tempFields');
         }
       }
       else {
         if ('error' in handler){
-        Alert.alert(`Error: ${handler?.error}`)
+        Alert.alert("Error", `${handler?.error}`)
         }
       }
       setLoading(false)

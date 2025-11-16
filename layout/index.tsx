@@ -41,12 +41,12 @@ export default function HomeScreen() {
           
         </View>
         <View style={styles.foreground}>
-          <ThemedText>Welcome to the page</ThemedText>
-          <ThemedText>Maneuver to Login to Begin</ThemedText>
+          <ThemedText style={styles.welcomeText}>Welcome to the page</ThemedText>
+          <ThemedText style={styles.subText}>Maneuver to Login to Begin</ThemedText>
           {session && user ? (
             <NFC value={nfcUpload} />
           ) : (
-            <ThemedText>Please log in to continue</ThemedText>
+            <ThemedText style={styles.subText}>Please log in to continue</ThemedText>
           )}
         </View>
       </View>
@@ -57,17 +57,30 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   openingVeil: {
     position: 'relative',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#667eea',
   },
   foreground: {
     zIndex: 10,
-    textAlign: 'center',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    color: 'white',
-    textDecorationColor: 'white'
-  }
+  },
+  welcomeText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  subText: {
+    color: '#fff',
+    fontSize: 14,
+    opacity: 0.85,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
 });
 
 //<DarkVeil />

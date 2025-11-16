@@ -5,10 +5,10 @@ const StudentPhoto = require('@/assets/student-photo.jpg');
 const TSUStrip = require('@/assets/tsu.jpg');
 
 interface Student {
-  stuid: string;
-  name: string;
-  diningDollars: string;
-  classification: string;
+  stuid?: string;
+  name?: string;
+  diningDollars?: string;
+  classification?: string;
   photoUrl?: string;
   qrCodeUrl?: string;
 }

@@ -4,7 +4,7 @@
   overflow: hidden;
   background-color: #002244;
   color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,33 +17,40 @@
   width: 100%;
   height: 120px;
   position: relative;
-  background: #002244; /* fallback */
+  background: #002244;
   z-index: 0;
 }
 
 .tsu-logo {
   width: 100px;
+  height: 60px;
   position: absolute;
   top: 12px;
   right: 12px;
-  z-index: 3; /* logo on top */
+  z-index: 3;
 }
 
-/* Banner strip under logo, behind student photo */
 .tsu-banner-strip {
   position: absolute;
-  top: 60px; /* below logo */
+  top: 60px;
   left: 0;
   width: 100%;
-  height: 80px; /* short strip */
+  height: 80px;
   background-size: cover;
   background-position: center;
-  z-index: 1; /* behind photo but above header */
-  border-radius: 8px; /* optional */
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tsu-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .tsu-photo-container {
-  margin: -20px auto 0 auto; /* slightly overlaps strip */
+  margin: -20px auto 0 auto;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -51,7 +58,7 @@
   overflow: hidden;
   background-color: #fff;
   position: relative;
-  z-index: 2; /* above strip */
+  z-index: 2;
 }
 
 .tsu-student-photo {
@@ -68,10 +75,12 @@
 .tsu-student-name {
   font-weight: 700;
   font-size: 18px;
+  color: #fff;
 }
 
 .tsu-student-role {
   font-size: 14px;
+  color: #fff;
   opacity: 0.85;
   margin-top: 2px;
 }
@@ -85,9 +94,16 @@
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.balance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .balance-label {
   font-size: 10px;
   text-align: center;
+  color: #fff;
   opacity: 0.8;
 }
 
@@ -95,10 +111,18 @@
   font-weight: 700;
   font-size: 14px;
   text-align: center;
+  color: #fff;
+  margin-top: 2px;
 }
 
 .tsu-qr-container {
   margin-top: 12px;
   width: 80px;
   height: 80px;
+}
+
+.qr-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

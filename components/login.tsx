@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthService from '../scripts/authService'
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { AuthContext } from "./contexts/AuthContext";
 
 const Login = ()=> {
     const navi = useNavigation()
+    const {refreshUser} = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const handleLogin = async () => {
       const handler = await AuthService.login(email, password)
-        if(handler.success) {
+        if(handler?.success) {
+          await refreshUser();
             navi.navigate('index')
         }
     }
