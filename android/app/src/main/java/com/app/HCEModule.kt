@@ -1,5 +1,6 @@
 package com.app
 
+import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
@@ -7,11 +8,12 @@ import com.facebook.react.bridge.ReactMethod
 class HCEModule(private val reactContext : ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
 
-    override fun getName() : String = "HCEModule"
+    override fun getName() : String = NAME
 
     @ReactMethod
-    fun startHce() {
+    fun startHce(callback: Callback) {
         ApduDataStore.enable()
+        callback.invoke("HCE Process started")
     }
     @ReactMethod
     fun stopHce() {
@@ -21,6 +23,10 @@ class HCEModule(private val reactContext : ReactApplicationContext) : ReactConte
     @ReactMethod
     fun setAPDUPayload(data : String) {
         ApduDataStore.setPayload(data.toByteArray(Charsets.UTF_8))
+    }
+
+    companion object {
+        const val NAME = "HCEModule"
     }
 }
 

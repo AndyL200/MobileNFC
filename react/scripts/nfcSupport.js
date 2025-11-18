@@ -2,15 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import {DigitalIdCard} from '@/components/digitalID'
-
+import { NativeModules } from 'react-native';
 
 import AndroidPrompt from './androidPrompt';
 
-let HCEModule = null
-if (Platform.OS == "android")
-{
-    HCEModule = NativeModules.HCEModule
-}
+const {HCEModule} = NativeModules;
+
 
  
 
@@ -38,12 +35,12 @@ export default function NFC({value})
             {
                 if(promptRef.current){
                         //If the widget is visible the process is operational
-                        HCEModule.start();
+                        HCEModule?.start(res=>console.log(res));
                     }
                 
                 else{
-                        if(HCEModule.isOn()){
-                            HCEModule.stop();
+                        if(HCEModule?.isOn()){
+                            HCEModule?.stop();
                         }
                     }
             }  

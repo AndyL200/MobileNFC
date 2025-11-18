@@ -1,6 +1,11 @@
 /**
  * @format
  */
+if (!Array.prototype.toReversed) {
+  Array.prototype.toReversed = function() {
+    return [...this].reverse();
+  };
+}
 
 import { AppRegistry } from 'react-native';
 import App from './App';
