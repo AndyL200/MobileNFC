@@ -41,7 +41,7 @@ class APDUService : HostApduService() {
         if(hexCommandApdu.substring(2,4) != SELECT_INS) {
             return hexStringToByteArray(INS_NOT_SUPPORTED)
         }
-        if(hexCommandApdu.substring(10,24) == AID) {
+        if(hexCommandApdu.substring(5,11) == AID) {
             if(payload != null) {
                 return payload.plus(hexStringToByteArray(STATUS_SUCCESS))
             }

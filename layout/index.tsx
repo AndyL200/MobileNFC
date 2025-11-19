@@ -30,9 +30,9 @@ export default function HomeScreen() {
   getFields();
 
   return () => {
-    isMounted = false; // ✅ Cleanup
+    isMounted = false; // Cleanup
   };
-}, [user]); // ✅ Only run when 'user' changes
+}, [user]); // Only run when 'user' changes
 
   return (
     <>
